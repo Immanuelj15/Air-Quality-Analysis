@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+venv/
+ENV/
+
+# Data & Models
+# air_quality_health_model.pkl (keeping this as it's needed for the app)
+# datasets (keeping these as per user request to push "this code")
+
+# PDFs
+Health_Report.pdf
+
+# IDEs
+.vscode/
+.idea/
