@@ -54,20 +54,28 @@ plt.show()
 print("Explained Variance Ratio:", pca.explained_variance_ratio_)"""))
 
 # 2.5 Model building
-cells.append(nbf.v4.new_markdown_cell("## 2.5 Model building\nSplitting the original data and training a robust ensemble algorithm (Random Forest) capable of modeling complex nonlinear interactions. The final model is serialized to instantiate the Dashboard."))
+cells.append(nbf.v4.new_markdown_cell("## 2.5 Model building\nSplitting the original data and training a robust machine learning Pipeline (StandardScaler + Random Forest Classifier) capable of modeling complex nonlinear interactions. The pipeline automatically standardizes inputs before training and inference, ensuring scale consistency across features. The final pipeline model is serialized to instantiate the Dashboard."))
 cells.append(nbf.v4.new_code_cell("""from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 import joblib
 
-# Using original unscaled X so that live Streamlit API data matches seamlessly
+# Split raw data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-model = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
+# Define pipeline to combine feature scaling and the estimator
+model = Pipeline([
+    ('scaler', StandardScaler()),
+    ('classifier', RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1))
+])
+
+# Fit pipeline
 model.fit(X_train, y_train)
 
-# Save inference artifact for app.py
+# Save the pipeline artifact for app.py
 joblib.dump(model, 'air_quality_health_model.pkl')
-print("Model mathematically converged and correctly persisted to .pkl!")"""))
+print("Model pipeline successfully trained and persisted to .pkl!")"""))
 
 # 2.6 Evaluating results
 cells.append(nbf.v4.new_markdown_cell("## 2.6 Evaluating results\nComputing test set inferences and establishing statistical success against multiple evaluation metrics (Accuracy, F1-Score, Confusion Matrix)."))
@@ -104,7 +112,8 @@ plt.title('Full Synthetic Variable Correlation Profile')
 plt.show()"""))
 
 cells.append(nbf.v4.new_code_cell("""# Feature Importance Interpretation
-importances = model.feature_importances_
+# Access the classifier step from the pipeline
+importances = model.named_steps['classifier'].feature_importances_
 indices = np.argsort(importances)[::-1]
 
 plt.figure(figsize=(10,6))

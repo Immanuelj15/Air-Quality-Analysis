@@ -16,3 +16,7 @@ Health_Report.pdf
 # IDEs
 .vscode/
 .idea/
+
+# Databases
+*.db
+backend/database.db

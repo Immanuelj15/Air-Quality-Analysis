@@ -1,0 +1,23 @@
+{
+    "random_forest": {
+        "name": "Random Forest Classifier",
+        "accuracy": 0.9999,
+        "precision": 0.9999000935453696,
+        "recall": 0.9999,
+        "f1_score": 0.9999000205890859
+    },
+    "logistic_regression": {
+        "name": "Logistic Regression",
+        "accuracy": 0.99635,
+        "precision": 0.9963076802456365,
+        "recall": 0.99635,
+        "f1_score": 0.9962387696548616
+    },
+    "decision_tree": {
+        "name": "Decision Tree Classifier",
+        "accuracy": 0.99985,
+        "precision": 0.9998502103786816,
+        "recall": 0.99985,
+        "f1_score": 0.9998500463129516
+    }
+}

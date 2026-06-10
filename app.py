@@ -6,6 +6,7 @@ import seaborn as sns
 import requests
 from fpdf import FPDF
 import os
+import plotly.express as px
 
 # ==========================================
 # 1. Configuration & Initial Loading
@@ -228,7 +229,14 @@ with tab2:
     st.divider()
     st.markdown("#### Correlation Matrix Heatmap")
     corr_matrix = data.corr().round(2)
-    fig, ax = plt.subplots(figsize=(14, 10))
-    sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap="YlGnBu", annot_kws={"size": 9}, linewidths=0.5, ax=ax)
-    plt.xticks(rotation=45, ha='right') 
-    st.pyplot(fig)
+    fig = px.imshow(
+        corr_matrix,
+        text_auto=True,
+        aspect="auto",
+        color_continuous_scale="YlGnBu"
+    )
+    fig.update_layout(
+        margin=dict(l=20, r=20, t=20, b=20),
+        height=600
+    )
+    st.plotly_chart(fig, use_container_width=True)
