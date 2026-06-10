@@ -1,4 +1,8 @@
 import os
+import sys
+# Add current directory to path to allow root imports on deployment
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 import joblib
 import pandas as pd
 import requests
