@@ -1,45 +1,111 @@
-# 🌍 Advanced AI Air Quality & Health Risk Dashboard
+# 🌍 Advanced AI-Driven Air Quality & Health Risk Platform
 
-An end-to-end Data Science project that integrates **Live API Data**, **Machine Learning Predictions**, and **Prescriptive AI** to monitor air quality and assess health risks.
+An end-to-end full-stack web application that combines **Live Environmental Data**, **Multi-Model Machine Learning**, and **Prescriptive AI** to analyze air quality indices (AQI) and dynamically assess associated health risk scores.
 
-## 🚀 Overview
-This platform provides real-time environmental monitoring and health risk assessment. It uses a machine learning model to predict health impact classes based on air quality metrics, weather conditions, and regional health statistics.
+### 🔗 Live Deployments
+* **Interactive Frontend (Vercel):** [https://air-quality-analysis-seven.vercel.app/](https://air-quality-analysis-seven.vercel.app/)
+* **Production API Service (Render):** [https://air-quality-analysis.onrender.com/docs](https://air-quality-analysis.onrender.com/docs)
+
+---
 
 ## ✨ Features
-- **🤖 AI Predictor**: Predicts health risk levels (Safe, Moderate, Dangerous) using a pre-trained model.
-- **📍 Live City Tracker**: Fetches real-time AQI and weather data for any city globally via Open-Meteo APIs.
-- **📄 Automated Medical Reports**: Generates professional PDF health reports containing AI predictions and personalized medical advice.
-- **🔮 What-If Scenario Optimizer**: A prescriptive AI feature that calculates the required reduction in pollutants to achieve a "Safe" health status.
-- **📊 Historical Data Insights**: Interactive dashboard for exploring dataset correlations and environmental trends.
 
-## 🛠️ Tech Stack
-- **Language**: Python
-- **Framework**: Streamlit (for the interactive dashboard)
-- **Machine Learning**: Scikit-learn, Joblib
-- **Data Analysis**: Pandas, Matplotlib, Seaborn
-- **APIs**: Open-Meteo (Geocoding and Air Quality)
-- **Report Generation**: FPDF
+1. **📍 Live Interactive Tracking**
+   * Fully responsive mapping interface powered by **React Leaflet** with automated geopinned coordinates.
+   * Instant geocoding and search for any city globally, pulling live 7-day AQI, pollutant histories, and local weather forecasts.
+2. **🤖 Multi-Model Arena**
+   * Benchmark predictions between multiple ML models: **Random Forest** (accuracy: ~94.8%), **Decision Tree**, and **Logistic Regression**.
+   * Comparative metrics dashboard displaying model precision, recall, and F1-scores based on our dataset of 100,000 environmental records.
+3. **🔮 Prescriptive AI (What-If Optimizer)**
+   * Slide controls to simulate shifts in pollutants (PM2.5, PM10, $NO_2$, $SO_2$, $O_3$), weather conditions, and clinical base rates.
+   * Real-time recommendation engine calculating the target pollutant reductions needed to bring dangerous areas into "Safe" health scores.
+4. **📄 Professional PDF Reports**
+   * Generate and download professional-grade health risk assessment sheets on the fly, containing all current metrics, coordinates, predictions, and detailed health recommendations.
+5. **🗄️ SQLite Analytics Logging**
+   * Automated local database logging of geocoding history, prediction queries, and automatic environmental alert triggers.
 
-## 📂 Project Structure
-- `app.py`: The main Streamlit application logic.
-- `Air_Quality_and_Health_Risk_Final.ipynb`: Jupyter notebook for model training and analysis.
-- `air_quality_health_model.pkl`: Pre-trained machine learning model.
-- `CRT_AirQuality_1Lakh_Realistic.csv`: Dataset used for training and exploration.
-- `fix_dataset.py` & `create_notebook.py`: Utility scripts for data preparation.
+---
 
-## ⚙️ Installation & Usage
-1. Clone the repository:
+## 🛠️ Architecture & Tech Stack
+
+### Frontend (React/Vite)
+* **Framework**: React v18 + Vite (configured with Tailwind CSS v3)
+* **Visualizations**: Recharts (smooth, interactive area charts for pollutant trends)
+* **Maps**: Leaflet & React Leaflet
+* **Iconography**: Lucide React
+* **Hosting**: Vercel (Single-page application)
+
+### Backend (FastAPI/Python)
+* **Framework**: FastAPI (high-performance asynchronous Python API)
+* **Database**: SQLite with SQLAlchemy for structured logging (`query_history`, `alert_logs`)
+* **ML Stack**: Scikit-Learn, Joblib, Pandas, NumPy
+* **Report Generation**: FPDF (dynamically generated PDF streams)
+* **Hosting**: Render (Web Service running Uvicorn)
+
+---
+
+## 📂 Repository Layout
+
+```
+Air_Quality_check/
+├── backend/
+│   ├── main.py            # Main FastAPI endpoints, router & scheduler
+│   ├── database.py        # SQLite Database models & engine configurations
+│   ├── train_arena.py     # Training script for Random Forest, Decision Tree & Logistic Regression
+│   ├── requirements.txt   # Backend python packages
+│   └── models/
+│       ├── *.pkl          # Serialized models
+│       └── metrics.json   # Model performance stats
+├── frontend/
+│   ├── package.json
+│   ├── vite.config.js     # Production build and proxy configs
+│   ├── tailwind.config.js # Custom typography & color schemes
+│   └── src/
+│       ├── App.jsx        # Premium dashboard user interface
+│       ├── index.css      # Core styles & glassmorphic custom variables
+│       └── main.jsx
+└── README.md              # Project Documentation
+```
+
+---
+
+## ⚙️ Local Development Setup
+
+### 1. Run the Backend
+1. Navigate to the `backend` directory:
    ```bash
-   git clone https://github.com/Immanuelj15/Air-Quality-Analysis.git
+   cd backend
    ```
-2. Install dependencies:
+2. Install Python dependencies:
    ```bash
-   pip install streamlit pandas joblib matplotlib seaborn requests fpdf
+   pip install -r requirements.txt
    ```
-3. Run the application:
+3. Run model training to generate the pipeline files:
    ```bash
-   streamlit run app.py
+   python train_arena.py
    ```
+4. Start the FastAPI development server:
+   ```bash
+   uvicorn main:app --reload --port 8000
+   ```
+   *The backend will be available at `http://localhost:8000` with interactive API docs at `http://localhost:8000/docs`.*
+
+### 2. Run the Frontend
+1. Navigate to the `frontend` directory:
+   ```bash
+   cd ../frontend
+   ```
+2. Install Node packages:
+   ```bash
+   npm install
+   ```
+3. Run the Vite local dev server:
+   ```bash
+   npm run dev
+   ```
+   *The frontend dashboard will load at `http://localhost:5173`.*
+
+---
 
 ## 📝 License
-This project is for educational and research purposes.
+This project is built for educational, research, and predictive air safety demonstration purposes.
